@@ -1,0 +1,22 @@
+import cv2
+import pytesseract
+
+camera = cv2.VideoCapture(0)
+
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'  # Replace with your Tesseract path
+
+while True:
+    _, frame = camera.read()
+
+    detected_text = pytesseract.image_to_string(frame)
+
+    if detected_text == "":
+        continue
+    else:
+        print("Text is :"+ detected_text)
+
+    if cv2.waitKey(1) & 0xFF == ord("q"):
+        break
+
+camera.release()
+cv2.destroyAllWindows()
